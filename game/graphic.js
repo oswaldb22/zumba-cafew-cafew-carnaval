@@ -25,7 +25,11 @@ function init()
     noGround = [];
     ground = new Ground(0xffffff, WIDTH, HEIGHT, 10);
     
-    player1 = new Player("player1", 0xffff00, new THREE.Vector2(50, 0), 0);
+    const startingPos = ground[0];
+    const x = startingPos[0];
+    const y = startingPos[1];
+
+    player1 = new Player("player1", 0xffff00, new THREE.Vector2(x, y), 0);
     scene.add(player1.graphic);
 
     light1 = new Light("sun", 0xffffff, "0,0,340");
@@ -35,7 +39,7 @@ function init()
 function Ground(color, size_x, size_y, nb_tile)
 {
     colors = Array(0xff0000, 0x00ff00, 0x0000ff, 0x000000);
-
+    const correctGround = [];
     sizeOfTileX = size_x / nb_tile;
     minX = -(size_x/2);
     maxX = (size_x/2);
@@ -56,12 +60,15 @@ function Ground(color, size_x, size_y, nb_tile)
                 new THREE.MeshLambertMaterial({color: color, transparent: true, opacity: 0.6}));
                 tmpGround.position.x = x;
                 tmpGround.position.y = y;
+                correctGround.push([x, y]);
                 scene.add(tmpGround);
             }
             else
                 noGround.push([x, y]);
         }
     }
+
+    return correctGround;
 }
 
 function Light(name, color, position)

@@ -37,6 +37,7 @@ function collisions() {
   player_collision();
   player_falling();
   bullet_ennemy_collision();
+  player_ennemy_collision();
 }
 
 function bullet_collision() {
@@ -54,7 +55,7 @@ function bullet_collision() {
 }
 
 function bullet_ennemy_collision() {
-  //collision between bullet and walls
+  //collision between bullet and ennemy
   for (var i = 0; i < player1.bullets.length; i++) {
     const playerPos = {
       x: player1.bullets[i].position.x,
@@ -121,8 +122,39 @@ function player_falling() {
       var mtileY = (element[1] + sizeOfTileY) | 0;
 
       if (x > tileX && x < mtileX && y > tileY && y < mtileY) {
-        player1.dead();
+        player1.life--;
+        if (player1.life <= 0) {
+          player1.dead();
+        }
       }
+    }
+  }
+}
+
+function player_ennemy_collision() {
+  //collision between bullet and walls
+  const playerPos = {
+    x: player1.position.x,
+    y: player1.position.y,
+    width: 5,
+    height: 5,
+  };
+  const ennemyPos = {
+    x: player2.position.x,
+    y: player2.position.y,
+    width: 2,
+    height: 2,
+  };
+
+  if (
+    playerPos.x < ennemyPos.x + ennemyPos.width &&
+    playerPos.x + playerPos.width > ennemyPos.x &&
+    playerPos.y < ennemyPos.y + ennemyPos.height &&
+    playerPos.y + playerPos.height > ennemyPos.y
+  ) {
+    player1.life--;
+    if (player1.life <= 0) {
+      player1.dead();
     }
   }
 }

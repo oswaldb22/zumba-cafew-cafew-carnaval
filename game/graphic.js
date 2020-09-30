@@ -1,3 +1,9 @@
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
 function init()
 {
     // set some camera attributes
@@ -26,12 +32,18 @@ function init()
     ground = new Ground(0xffffff, WIDTH, HEIGHT, 10);
     
     const startingPos = ground[0];
-    const x = startingPos[0];
-    const y = startingPos[1];
+    const px = startingPos[0];
+    const py = startingPos[1];
 
-    player1 = new Player("player1", 0xffff00, new THREE.Vector2(x, y), 0);
+    const ex = ground[getRandomInt(0,ground.length)][0]
+    const ey = ground[getRandomInt(0,ground.length)][1];
+    
+    console.log([ex, ey])
+    player1 = new Player("player1", 0xffff00, new THREE.Vector2(px, py), 0);
+    player2 = new Player("ennemy", 0xff0000, new THREE.Vector2(ex, ey), 0);
+
     scene.add(player1.graphic);
-
+    scene.add(player2.graphic);
     light1 = new Light("sun", 0xffffff, "0,0,340");
     scene.add(light1);
 }

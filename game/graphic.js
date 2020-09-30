@@ -31,14 +31,12 @@ function init()
     noGround = [];
     ground = new Ground(0xffffff, WIDTH, HEIGHT, 10);
     
-    const startingPos = ground[0];
-    const px = startingPos[0];
-    const py = startingPos[1];
+    const px = ground[0][0]
+    const py = ground[0][1];
 
     const ex = ground[getRandomInt(0,ground.length)][0]
     const ey = ground[getRandomInt(0,ground.length)][1];
     
-    console.log([ex, ey])
     player1 = new Player("player1", 0xffff00, new THREE.Vector2(px, py), 0);
     player2 = new Player("ennemy", 0xff0000, new THREE.Vector2(ex, ey), 0);
 
